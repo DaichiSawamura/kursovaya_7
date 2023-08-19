@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('users', '0001_initial'),
     ]
@@ -13,6 +12,10 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='user',
             name='role',
-            field=models.CharField(blank=True, choices=[('member', 'member'), ('moderator', 'moderator')], default='member', max_length=10, null=True, verbose_name='роль'),
+            field=models.CharField(blank=True, choices=[('member', 'member'),
+                                                        ('moderator',
+                                                         'moderator')],
+                                   default='member', max_length=10, null=True,
+                                   verbose_name='роль'),
         ),
     ]

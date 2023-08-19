@@ -6,7 +6,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -17,18 +16,41 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Habit',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=150, verbose_name='название')),
-                ('place', models.CharField(max_length=150, verbose_name='место')),
+                ('id', models.BigAutoField(auto_created=True, primary_key=True,
+                                           serialize=False,
+                                           verbose_name='ID')),
+                ('name',
+                 models.CharField(max_length=150, verbose_name='название')),
+                ('place',
+                 models.CharField(max_length=150, verbose_name='место')),
                 ('time', models.TimeField(verbose_name='время')),
-                ('action', models.CharField(max_length=150, verbose_name='действие')),
-                ('is_pleasurable', models.BooleanField(default=True, verbose_name='полезная привычка')),
-                ('periodic', models.IntegerField(default=1, verbose_name='периодичность')),
-                ('reward', models.CharField(blank=True, max_length=150, null=True, verbose_name='похвала')),
-                ('execution_time', models.TimeField(blank=True, null=True, verbose_name='время выполнения')),
-                ('public', models.BooleanField(default=True, verbose_name='публичность')),
-                ('associated_habit', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='habit.habit', verbose_name='связанная привычка')),
-                ('owner', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='юзер')),
+                ('action',
+                 models.CharField(max_length=150, verbose_name='действие')),
+                ('is_pleasurable', models.BooleanField(default=True,
+                                                       verbose_name='полезная' 
+                 'привычка')),
+                ('periodic',
+                 models.IntegerField(default=1, verbose_name='периодичность')),
+                ('reward',
+                 models.CharField(blank=True, max_length=150, null=True,
+                                  verbose_name='похвала')),
+                ('execution_time', models.TimeField(blank=True, null=True,
+                                                    verbose_name='время' 
+                 'выполнения')),
+                ('public', models.BooleanField(default=True,
+                                               verbose_name='публичность')),
+                ('associated_habit', models.ForeignKey(blank=True, null=True,
+                                                       on_delete=django.db.
+                                                       models.deletion.SET_NULL
+                                                       ,
+                                                       to='habit.habit',
+                                                       verbose_name='связанная' 
+                 'привычка')),
+                ('owner', models.ForeignKey(blank=True, null=True,
+                                            on_delete=django.db.models.deletion
+                                            .CASCADE,
+                                            to=settings.AUTH_USER_MODEL,
+                                            verbose_name='юзер')),
             ],
             options={
                 'verbose_name': 'Привычка',

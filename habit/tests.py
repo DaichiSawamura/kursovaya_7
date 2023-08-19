@@ -19,20 +19,31 @@ class HabitsTestCase(APITestCase):
         )
         self.user.set_password('1234567')
         self.user.save()
-        response = self.client.post('/api/token/', {"email": "test@test.com", "password": "1234567"})
+        response = self.client.post('/api/token/', {"email": "test@test.com",
+                                                    "password": "1234567"})
         self.access_token = response.json().get('access')
-        self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {self.access_token}')
+        self.client.credentials(HTTP_AUTHORIZATION=f'Bearer '
+                                                   f'{self.access_token}')
         self.test_model_name = 'test'
 
     def test_habit_create(self):
-        habit_test = Habit.objects.create(name="test", place="test", time="13:00",
+        habit_test = Habit.objects.create(name="test", place="test",
+                                          time="13:00",
                                           action="test",
-                                          is_pleasurable=True, periodic=1, reward=None, execution_time="00:01",
-                                          public=True, owner=self.user, associated_habit=None)
-        response = self.client.post('/api/habits/', {'name': "test2", "place": "test", "time": "13:00",
-                                                     "action": "test", "is_pleasurable": True,
-                                                     "periodic": 1, "reward": 'None', "execution_time": "00:01",
-                                                     "public": True, "owner": 1})
+                                          is_pleasurable=True, periodic=1,
+                                          reward=None, execution_time="00:01",
+                                          public=True, owner=self.user,
+                                          associated_habit=None)
+        response = self.client.post('/api/habits/', {'name': "test2",
+                                                     "place": "test",
+                                                     "time": "13:00",
+                                                     "action": "test",
+                                                     "is_pleasurable": True,
+                                                     "periodic": 1,
+                                                     "reward": 'None',
+                                                     "execution_time": "00:01",
+                                                     "public": True,
+                                                     "owner": 1})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(habit_test.name, 'test')
 
@@ -40,9 +51,14 @@ class HabitsTestCase(APITestCase):
         self.test_habit_create()
         response = self.client.get(f'/api/habits/1/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.json(), {'id': 1, 'name': 'test', 'place': 'test', 'time': '13:00:00',
-                                           'action': 'test', 'is_pleasurable': True, 'periodic': 1,
-                                           'reward': None, 'execution_time': '00:01:00', 'public': True, 'owner': 1,
+        self.assertEqual(response.json(), {'id': 1, 'name': 'test',
+                                           'place': 'test', 'time': '13:00:00',
+                                           'action': 'test',
+                                           'is_pleasurable': True,
+                                           'periodic': 1,
+                                           'reward': None,
+                                           'execution_time': '00:01:00',
+                                           'public': True, 'owner': 1,
                                            'associated_habit': None})
 
     def test_list_habits(self):

@@ -18,7 +18,8 @@ class HabitsViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        if user.is_staff or user.is_superuser or user.role == UserRoles.MODERATOR:
+        if user.is_staff or user.is_superuser or user.role == UserRoles.\
+                MODERATOR:
             return Habit.objects.all()
         else:
             return Habit.objects.filter(owner=user)
@@ -31,7 +32,8 @@ class HabitsListView(generics.ListAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        if user.is_staff or user.is_superuser or user.role == UserRoles.MODERATOR:
+        if user.is_staff or user.is_superuser or user.role == UserRoles.\
+                MODERATOR:
             return Habit.objects.all()
         else:
             return Habit.objects.filter(public=True)
